@@ -1,0 +1,66 @@
+[
+  {
+    "id": "FIR-001",
+    "crime_type": "Burglary",
+    "date": "2024-01-10",
+    "location": "12 Park Street, Delhi",
+    "suspect_description": "Male, 30s, medium build, wearing a black hoodie",
+    "modus_operandi": "Broke rear window, stole electronics and cash"
+  },
+  {
+    "id": "FIR-002",
+    "crime_type": "Vehicle Theft",
+    "date": "2024-01-15",
+    "location": "Sector 9, Noida",
+    "suspect_description": "Male, 20s, slim build, wearing a grey jacket",
+    "modus_operandi": "Used duplicate key to steal parked car in the night"
+  },
+  {
+    "id": "FIR-003",
+    "crime_type": "Chain Snatching",
+    "date": "2024-01-20",
+    "location": "MG Road, Bangalore",
+    "suspect_description": "Two males on a motorbike, helmets on",
+    "modus_operandi": "Rode past victim and snatched gold chain from behind"
+  },
+  {
+    "id": "FIR-004",
+    "crime_type": "Burglary",
+    "date": "2024-02-05",
+    "location": "45 Nehru Nagar, Delhi",
+    "suspect_description": "Male, 30s, medium build, black hoodie, gloves",
+    "modus_operandi": "Broke rear window, stole laptops and mobile phones"
+  },
+  {
+    "id": "FIR-005",
+    "crime_type": "Fraud",
+    "date": "2024-02-10",
+    "location": "Online",
+    "suspect_description": "Unknown, contacted via phone",
+    "modus_operandi": "Posed as bank official and obtained OTP from victim"
+  },
+  {
+    "id": "FIR-006",
+    "crime_type": "Vehicle Theft",
+    "date": "2024-02-18",
+    "location": "Sector 14, Noida",
+    "suspect_description": "Male, 20s, slim, grey jacket, cap",
+    "modus_operandi": "Used duplicate key to steal car parked outside apartment at night"
+  },
+  {
+    "id": "FIR-007",
+    "crime_type": "Assault",
+    "date": "2024-02-22",
+    "location": "Lajpat Nagar, Delhi",
+    "suspect_description": "Male, 40s, heavy build, beard",
+    "modus_operandi": "Attacked victim during a road rage incident"
+  },
+  {
+    "id": "FIR-008",
+    "crime_type": "Chain Snatching",
+    "date": "2024-03-01",
+    "location": "Brigade Road, Bangalore",
+    "suspect_description": "Two males on motorbike, both wearing helmets",
+    "modus_operandi": "Snatched gold chain from victim on motorbike while passing"
+  }
+]

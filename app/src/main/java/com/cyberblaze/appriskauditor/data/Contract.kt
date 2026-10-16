@@ -1,9 +1,15 @@
-﻿package com.cyberblaze.appriskauditor.data
+package com.cyberblaze.appriskauditor.data
+
+/**
+ * Core data contract. READ-ONLY for all team members.
+ * Person 1 added: `room` field to [PermInfo] for 9-room categorisation.
+ */
 
 data class PermInfo(
     val name: String,
     val granted: Boolean,
-    val level: String
+    val level: String,
+    val room: String? = null,   // one of Constants.ROOM_* or null for uncategorised
 )
 
 data class AppInfo(
@@ -15,7 +21,7 @@ data class AppInfo(
     val targetSdk: Int,
     val isSystem: Boolean,
     val perms: List<PermInfo>,
-    val special: Set<String> = emptySet()
+    var special: Set<String> = emptySet(),  // mutable: Person 3 fills this before scoring
 )
 
 data class RiskResult(
@@ -23,5 +29,5 @@ data class RiskResult(
     val band: String,
     val reasons: List<String>,
     val rooms: Map<String, List<String>>,
-    val persona: String
+    val persona: String,
 )

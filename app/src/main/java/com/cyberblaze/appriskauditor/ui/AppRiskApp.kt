@@ -1,5 +1,9 @@
 ﻿package com.cyberblaze.appriskauditor.ui
 
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,7 +64,7 @@ fun AppListScreen(
     results: Map<AppInfo, RiskResult>,
     onSelect: (AppInfo) -> Unit
 ) {
-    val avg = results.values.map { it.score }.take(5).average()
+    val avg = if (results.isEmpty()) 0.0 else results.values.map { it.score }.take(5).average()
     val safety = (100 - avg).toInt().coerceIn(0, 100)
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -172,6 +177,8 @@ fun AppRow(app: AppInfo, result: RiskResult, onClick: () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(app: AppInfo, result: RiskResult, onBack: () -> Unit) {
+    val context = LocalContext.current
+
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = { Text(app.label, color = Color.White) },
@@ -188,17 +195,22 @@ fun DetailScreen(app: AppInfo, result: RiskResult, onBack: () -> Unit) {
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
+            // Spy Card
             item {
                 Card(colors = CardDefaults.cardColors(containerColor = Color.White)) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text("SPY CARD", fontSize = 11.sp, color = Color.Gray)
                         Text(result.persona, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                        Text("Score ${result.score} / 100 · ${result.band}",
-                            color = bandColor(result.band), fontWeight = FontWeight.SemiBold)
+                        Text(
+                            "Score ${result.score} / 100 · ${result.band}",
+                            color = bandColor(result.band),
+                            fontWeight = FontWeight.SemiBold
+                        )
                     }
                 }
             }
 
+            // Why flagged
             item {
                 Card(colors = CardDefaults.cardColors(containerColor = Color.White)) {
                     Column(modifier = Modifier.padding(16.dp)) {
@@ -215,6 +227,7 @@ fun DetailScreen(app: AppInfo, result: RiskResult, onBack: () -> Unit) {
                 }
             }
 
+            // Rooms
             item {
                 Card(colors = CardDefaults.cardColors(containerColor = Color.White)) {
                     Column(modifier = Modifier.padding(16.dp)) {
@@ -230,21 +243,42 @@ fun DetailScreen(app: AppInfo, result: RiskResult, onBack: () -> Unit) {
                 }
             }
 
+            // Buttons
             item {
                 Button(
-                    onClick = { },
+                    onClick = {
+                        try {
+                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                                data = Uri.fromParts("package", app.pkg, null)
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            }
+                            context.startActivity(intent)
+                        } catch (e: Exception) {
+                            Toast.makeText(context, "Cannot open settings: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1976D2))
                 ) {
-                    Text("Open Settings")
+                    Text("Open Settings", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                 }
                 Spacer(Modifier.height(8.dp))
                 Button(
-                    onClick = { },
+                    onClick = {
+                        try {
+                            val intent = Intent(Intent.ACTION_DELETE).apply {
+                                data = Uri.fromParts("package", app.pkg, null)
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            }
+                            context.startActivity(intent)
+                        } catch (e: Exception) {
+                            Toast.makeText(context, "Cannot uninstall: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD32F2F))
                 ) {
-                    Text("Uninstall")
+                    Text("Uninstall", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                 }
             }
         }

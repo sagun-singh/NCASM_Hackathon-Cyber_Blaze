@@ -76,7 +76,7 @@ The planned analysis covers nine categories:
 
 *Update this section to match the technologies actually selected and used by the development team.*
 
-- *Platform:** Android
+- *Platform:* Android
 - *Programming Language:* To be finalized by the team
 - *Development Environment:* To be finalized by the team
 - *UI Framework:* To be finalized by the team

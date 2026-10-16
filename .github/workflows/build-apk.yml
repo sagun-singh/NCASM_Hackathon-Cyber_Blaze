@@ -23,7 +23,11 @@ jobs:
           gradle-version: 8.4
 
       - name: Build Debug APK
-        run: gradle assembleDebug --stacktrace
+        run: |
+          gradle assembleDebug \
+            --no-daemon \
+            --stacktrace \
+            -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=1g"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

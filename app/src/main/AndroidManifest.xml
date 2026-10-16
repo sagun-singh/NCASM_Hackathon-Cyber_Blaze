@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        HARD RULES COMPLIANCE
+        ─────────────────────
+        ✗ INTERNET permission is NOT declared (no network calls, no telemetry).
+        ✗ allowBackup is set to false (enterprise data-security requirement).
+        ✓ QUERY_ALL_PACKAGES is the only special permission (allowed for hackathon).
+    -->
+
+    <!-- Required to enumerate all installed packages (incl. non-visible ones) on API 30+.
+         The Google Play policy exception for security/audit tools applies here. -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <application
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppRiskAuditor"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

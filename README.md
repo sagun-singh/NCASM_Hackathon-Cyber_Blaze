@@ -111,11 +111,11 @@ Team members :
 
 | Team Member | 
 | ----------- | 
-| Sagun | 
+| Sagun Singh | 
 | Shweta | 
 | Sanjeevani | 
 | Harnish |
-| Ankit  |
+| Ankit |
 | Swastik |
 
 ## ⚠️ Limitations
